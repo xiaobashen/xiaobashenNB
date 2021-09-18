@@ -8,7 +8,8 @@
 # https://github.com/P3TERX/Actions-OpenWrt
 # File name: diy-part1.sh
 # Description: OpenWrt DIY script part 1 (Before Update feeds)
-#
+#更换测试内核
+sed -i 's/5.4/5.10/g' ./target/linux/x86/Makefile
 
 # Uncomment a feed source
 sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
