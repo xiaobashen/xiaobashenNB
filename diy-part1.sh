@@ -13,10 +13,10 @@ sed -i '13d; s/KERNEL_TESTING_PATCHVER/KERNEL_PATCHVER/g' ./target/linux/x86/Mak
 
 #Zh-Netdata
 rm -rf ./package/lean/luci-app-netdata
+git clone https://github.com/Jason6111/luci-app-netdata ./package/lean/luci-app-netdata
 
 # Uncomment a feed source
 sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
-git clone https://github.com/Jason6111/luci-app-netdata ./package/lean/luci-app-netdata
 
 # Add a feed source
 echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
