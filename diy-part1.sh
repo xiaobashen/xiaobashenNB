@@ -9,7 +9,7 @@
 # File name: diy-part1.sh
 # Description: OpenWrt DIY script part 1 (Before Update feeds)
 #Update Kernel
-sed -i '13d; s/KERNEL_TESTING_PATCHVER/KERNEL_PATCHVER/g' ./target/linux/x86/Makefile
+sed -i '/KERNEL_PATCHVER=/ d; s/KERNEL_TESTING_PATCHVER/KERNEL_PATCHVER/g' ./target/linux/x86/Makefile
 
 #Zh-Netdata
 rm -rf ./package/lean/luci-app-netdata
