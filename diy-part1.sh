@@ -19,7 +19,5 @@ git clone https://github.com/Jason6111/luci-app-netdata ./package/lean/luci-app-
 sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
 # Add a feed source
-git clone https://github.com/linkease/istore ./package/istore
-git clone https://github.com/linkease/istore-ui ./package/lean/istore-ui
 echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
