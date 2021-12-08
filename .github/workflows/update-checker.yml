@@ -89,38 +89,47 @@ jobs:
         cd $REPO_PATH_xiaobashenxiaobashenNB
         echo "::set-output name=commitHash_xiaobashenxiaobashenNB::$(git rev-parse HEAD)"
         cd
+
         git clone --depth 1 $REPO_URL_Lede -b $REPO_BRANCH_Lede $REPO_PATH_Lede
         cd $REPO_PATH_Lede
         echo "::set-output name=commitHash_Lede::$(git rev-parse HEAD)"
         cd
+
         git clone --depth 1 $REPO_URL_Lede_Package -b $REPO_BRANCH_Lede_Package $REPO_PATH_Lede_Package
         cd $REPO_PATH_Lede_Package
         echo "::set-output name=commitHash_Lede_Package::$(git rev-parse HEAD)"
         cd
+
         git clone --depth 1 $REPO_URL_Lede_Luci -b $REPO_BRANCH_Lede_Luci $REPO_PATH_Lede_Luci
         cd $REPO_PATH_Lede_Luci
         echo "::set-output name=commitHash_Lede_Luci::$(git rev-parse HEAD)"
         cd
+
         git clone --depth 1 $REPO_URL_OPENWRT_ROUTING -b $REPO_BRANCH_OPENWRT_ROUTING $REPO_PATH_OPENWRT_ROUTING
         cd $REPO_PATH_OPENWRT_ROUTING
         echo "::set-output name=commitHash_OPENWRT_ROUTING::$(git rev-parse HEAD)"
         cd
+
         git clone --depth 1 $REPO_URL_OPENWRT_TELEPHONY -b $REPO_BRANCH_OPENWRT_TELEPHONY $REPO_PATH_OPENWRT_TELEPHONY
         cd $REPO_PATH_OPENWRT_TELEPHONY
         echo "::set-output name=commitHash_OPENWRT_TELEPHONY::$(git rev-parse HEAD)"
         cd
+
         git clone --depth 1 $REPO_URL_HelloWorld -b $REPO_BRANCH_HelloWorld $REPO_PATH_HelloWorld 
         cd $REPO_PATH_HelloWorld
         echo "::set-output name=commitHash_HelloWorld::$(git rev-parse HEAD)"
         cd
+
         git clone --depth 1 $REPO_URL_ThemeArgon -b $REPO_BRANCH_ThemeArgon $REPO_PATH_ThemeArgon
         cd $REPO_PATH_ThemeArgon
         echo "::set-output name=commitHash_ThemeArgon::$(git rev-parse HEAD)"
         cd
+
         git clone --depth 1 $REPO_URL_ArgonConfig -b $REPO_BRANCH_ArgonConfig $REPO_PATH_ArgonConfig 
         cd $REPO_PATH_ArgonConfig 
         echo "::set-output name=commitHash_ArgonConfig::$(git rev-parse HEAD)"
-        
+        cd
+
     - name: Show Commit Head and Combination Heads
       id: combHeader
       run: |
