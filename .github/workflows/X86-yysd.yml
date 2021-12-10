@@ -29,6 +29,8 @@ env:
   CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
+  COMMIT_LOG_NUM: 1
+  RELEASE_TAG: X86  
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
@@ -172,6 +174,12 @@ jobs:
         [ $UPLOAD_COWTRANSFER = true ] && echo "🔗 [Cowtransfer](${{ steps.cowtransfer.outputs.url }})" >> release.txt
         [ $UPLOAD_WETRANSFER = true ] && echo "🔗 [WeTransfer](${{ steps.wetransfer.outputs.url }})" >> release.txt
         echo "::set-output name=status::success"
+        
+        echo "## Lean Luci Commit Top $COMMIT_LOG_NUM" >> release.txt
+        git -C openwrt/feeds/luci log -n $COMMIT_LOG_NUM >> release.txt
+        
+        echo "## SSRP Commit Top $COMMIT_LOG_NUM" >> release.txt
+        git -C openwrt/feeds/helloworld log -n $COMMIT_LOG_NUM >> release.txt           
 
     - name: Upload firmware to release
       uses: softprops/action-gh-release@v1
