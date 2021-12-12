@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: X86-yysd
+name: 编译openwrt-X86 #X86-yysd
 
 on:
   repository_dispatch:
@@ -43,10 +43,10 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - name: Checkout
+    - name: 检查准备 #Checkout
       uses: actions/checkout@main
 
-    - name: Initialization environment
+    - name: 开始安装编译所需系统 #Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
@@ -59,7 +59,7 @@ jobs:
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
 
-    - name: Clone source code
+    - name: 下载固件源码 #Clone source code
       working-directory: /workdir
       run: |
         df -hT $PWD
@@ -72,20 +72,20 @@ jobs:
  #       ccache: 'true'
  #       prefix: ${{ github.workspace }}/openwrt 
  
-    - name: Load custom feeds
+    - name: patch1补丁和自定义设置 #Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
-    - name: Update feeds
+    - name: 更新源 #Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
-    - name: Install feeds
+    - name: 安装源 #Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
-    - name: Load custom configuration
+    - name: patch2补丁和自定义设置 #Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
@@ -100,7 +100,7 @@ jobs:
 #        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 #        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
-    - name: Download package
+    - name: 下载软件包 #Download package
       id: package
       run: |
         cd openwrt
@@ -109,7 +109,7 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
-    - name: Compile the firmware
+    - name: 开始编译固件 #Compile the firmware
       id: compile
       run: |
         cd openwrt
@@ -120,18 +120,18 @@ jobs:
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
         echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
 
-    - name: Check space usage
+    - name: 检查空间使用情况 #Check space usage
       if: (!cancelled())
       run: df -hT
 
-    - name: Upload bin directory
-      uses: actions/upload-artifact@main
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
-      with:
-        name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: openwrt/bin
+#    - name: Upload bin directory
+#      uses: actions/upload-artifact@main
+#      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
+#      with:
+#        name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+#        path: openwrt/bin
 
-    - name: Organize files
+    - name: 整理固件文件夹 #Organize files
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
@@ -140,32 +140,32 @@ jobs:
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
-    - name: Upload firmware directory
+    - name: 上传固件目录 #Upload firmware directory
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
         name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
 
-    - name: Upload firmware to cowtransfer
-      id: cowtransfer
-      if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
-      run: |
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
-        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-        echo "::set-output name=url::$(cat cowtransfer.log | grep https | cut -f3 -d" ")"
+#    - name: Upload firmware to cowtransfer
+#      id: cowtransfer
+#      if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
+#      run: |
+#        curl -fsSL git.io/file-transfer | sh
+#        ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
+#        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
+#        echo "::set-output name=url::$(cat cowtransfer.log | grep https | cut -f3 -d" ")"
 
-    - name: Upload firmware to WeTransfer
-      id: wetransfer
-      if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
-      run: |
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-        echo "::set-output name=url::$(cat wetransfer.log | grep https | cut -f3 -d" ")"
+#    - name: Upload firmware to WeTransfer
+#      id: wetransfer
+#      if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
+#      run: |
+#        curl -fsSL git.io/file-transfer | sh
+#        ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
+#        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+#        echo "::set-output name=url::$(cat wetransfer.log | grep https | cut -f3 -d" ")"
 
-    - name: Generate release tag
+    - name: 生成发布标签 #Generate release tag
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
@@ -181,7 +181,7 @@ jobs:
         echo "## SSRP Commit Top $COMMIT_LOG_NUM" >> release.txt
         git -C openwrt/feeds/helloworld log -n $COMMIT_LOG_NUM >> release.txt           
 
-    - name: Upload firmware to release
+    - name: 上传固件以及发布 #Upload firmware to release
       uses: softprops/action-gh-release@v1
       if: steps.tag.outputs.status == 'success' && !cancelled()
       env:
@@ -191,13 +191,13 @@ jobs:
         body_path: release.txt
         files: ${{ env.FIRMWARE }}/*
 
-    - name: Delete workflow runs
+    - name: 删除工作流程运行 #Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
       with:
         retain_days: 1
         keep_minimum_runs: 3
 
-    - name: Remove old Releases
+    - name: 删除旧版本 #Remove old Releases
       uses: dev-drprasad/delete-older-releases@v0.1.0
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
