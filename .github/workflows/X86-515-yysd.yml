@@ -27,8 +27,8 @@ env:
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: X86_515.config
-  DIY_P1_SH: diy-part_X86_5151.sh
-  DIY_P2_SH: diy-part_X86_5152.sh
+  DIY_P1_SH: diy-part1.sh
+  DIY_P2_SH: diy-part2.sh
   COMMIT_LOG_NUM: 1
   RELEASE_TAG: X86_515
   UPLOAD_BIN_DIR: false
