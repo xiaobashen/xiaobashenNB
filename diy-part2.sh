@@ -25,3 +25,9 @@ git clone https://github.com/jerrykuku/luci-app-argon-config.git ./package/lean/
 sed -i 's/(dmesg | grep .*/{a}${b}${c}${d}${e}${f}/g' package/lean/autocore/files/x86/autocore
 sed -i '/h=${g}.*/d' package/lean/autocore/files/x86/autocore
 sed -i 's/echo $h/echo $g/g' package/lean/autocore/files/x86/autocore
+
+#日期
+sed -i 's/os.date(/&"%Y-%m-%d %H:%M:%S"/' package/lean/autocore/files/x86/index.htm
+
+#关闭串口跑码
+sed -i 's/console=tty0//g'  target/linux/x86/image/Makefile
