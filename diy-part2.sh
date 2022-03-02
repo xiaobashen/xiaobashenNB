@@ -16,6 +16,9 @@ sed -i 's/192.168.1.1/192.168.3.66/g' package/base-files/files/bin/config_genera
 # Modify default passwd
 sed -i '/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF./ d' package/lean/default-settings/files/zzz-default-settings
 
+# zh netdata
+rm -rf feeds/luci/applications/luci-app-netdata/
+
 # 添加新主题  
 rm -rf ./feeds/luci/themes/luci-theme-argon
 git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git ./feeds/luci/themes/luci-theme-argon
