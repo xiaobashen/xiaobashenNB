@@ -18,6 +18,7 @@ sed -i '/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF./ d' package/lean/default-settings/fi
 
 # zh netdata
 rm -rf feeds/luci/applications/luci-app-netdata/
+git clone https://github.com/Jason6111/luci-app-netdata feeds/luci/applications/luci-app-netdata/
 
 # 添加新主题  
 rm -rf ./feeds/luci/themes/luci-theme-argon
