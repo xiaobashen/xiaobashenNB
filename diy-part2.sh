@@ -19,8 +19,9 @@ sed -i '/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF./ d' package/lean/default-settings/fi
 # zh netdata
 rm -rf ./feeds/luci/applications/luci-app-netdata/
 git clone https://github.com/Jason6111/luci-app-netdata ./feeds/luci/applications/luci-app-netdata/
-#sed -i "s/allow connections from =/& */" feeds/packages/admin/netdata/files/netdata.conf
-#sed -i "s/allow dashboard from =/& */" feeds/packages/admin/netdata/files/netdata.conf
+# netdata 1.33.1
+#rm -rf ./feeds/packages/admin/netdata
+#git clone -b 1.33.1 https://github.com/Jason6111/luci-app-netdata ./feeds/packages/admin/netdata
 
 # 添加新主题  
 rm -rf ./feeds/luci/themes/luci-theme-argon
