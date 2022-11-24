@@ -34,7 +34,7 @@ git clone https://github.com/Jason6111/luci-app-netdata ./feeds/luci/application
 # git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git ./feeds/luci/themes/luci-theme-argon
 # git clone https://github.com/jerrykuku/luci-app-argon-config.git ./package/lean/luci-app-argon-config
 #sed -i s/5.19/5.18/g  target/linux/x86/Makefile
-svn co https://github.com/Jason6111/OpenWrt_Personal/trunk/other/argon/video/default  ./feeds/luci/themes/luci-theme-argon-mod/htdocs/luci-static/argon/background/
+svn co https://github.com/xiaobashen/xiaobashenNB/trunk/other ./feeds/luci/themes/luci-theme-argon-mod/htdocs/luci-static/argon/background/
 rm -rf ./feeds/luci/themes/luci-theme-argon-mod/htdocs/luci-static/argon/background/.svn/
 
 #恢复主机型号
