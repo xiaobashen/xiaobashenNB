@@ -177,7 +177,7 @@ jobs:
         
     - name: 触发器构建 #Trigger build
       if: steps.cacheHash.outputs.cache-hit != 'true'
-      uses: peter-evans/repository-dispatch@v1
+      uses: peter-evans/repository-dispatch@v2.1
       with:
         token: ${{ secrets.XIAOBASHEN_TRIGGER  }}
         event-type: OpenWrt相关代码更新 #OpenWrt Related Code Updates
