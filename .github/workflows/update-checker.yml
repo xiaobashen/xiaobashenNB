@@ -92,7 +92,7 @@ jobs:
 
         git clone --depth 1 $REPO_URL_Lede -b $REPO_BRANCH_Lede $REPO_PATH_Lede
         cd $REPO_PATH_Lede
-        echo "commitHash_Lede=$(git rev-parse HEAD)"  >> $GITHUB_OUTPUT
+        echo "commitHash_Lede=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
         cd
 
         git clone --depth 1 $REPO_URL_Lede_Package -b $REPO_BRANCH_Lede_Package $REPO_PATH_Lede_Package
