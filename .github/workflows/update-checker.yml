@@ -174,18 +174,17 @@ jobs:
         echo ${{ steps.getHash.outputs.commitHash_ArgonConfig }} | tee .commitHash_ArgonConfig
         echo ${{ steps.combHeader.outputs.commitHash_All }} | tee .commitHash_All
         
-        
-    - name: 触发器构建 #Trigger build
-      if: steps.cacheHash.outputs.cache-hit != 'true'
-      uses: peter-evans/repository-dispatch@v2.1.0
-      with:
-        token: ${{ secrets.XIAOBASHEN_TRIGGER  }}
-        event-type: OpenWrt相关代码更新 #OpenWrt Related Code Updates
-
     - name: 删除工作流程运行 #Delete workflow runs
       uses: xiaobashen/delete-workflow-runs@main
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         repository: ${{ github.repository }}
         retain_days: 1
-        keep_minimum_runs: 2
+        keep_minimum_runs: 2      
+        
+    - name: 触发器构建 #Trigger build
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      uses: peter-evans/repository-dispatch@v2
+      with:
+        token: ${{ secrets.XIAOBASHEN_TRIGGER  }}
+        event-type: OpenWrt相关代码更新 #OpenWrt Related Code Updates
