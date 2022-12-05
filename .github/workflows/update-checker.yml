@@ -102,7 +102,7 @@ jobs:
 
         git clone --depth 1 $REPO_URL_Lede_Luci -b $REPO_BRANCH_Lede_Luci $REPO_PATH_Lede_Luci
         cd $REPO_PATH_Lede_Luci
-        echo ""commitHash_Lede_Luci=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+        echo "commitHash_Lede_Luci=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
         cd
 
         git clone --depth 1 $REPO_URL_OPENWRT_ROUTING -b $REPO_BRANCH_OPENWRT_ROUTING $REPO_PATH_OPENWRT_ROUTING
