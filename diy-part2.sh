@@ -38,7 +38,8 @@ svn co https://github.com/xiaobashen/xiaobashenNB/trunk/other ./feeds/luci/theme
 rm -rf ./feeds/luci/themes/luci-theme-argon-mod/htdocs/luci-static/argon/background/.svn/
 
 #恢复主机型号
-sed -i 's/(dmesg | grep .*/{a}${b}${c}${d}${e}${f}/g' package/lean/autocore/files/x86/autocore
+#sed -i 's/(dmesg | grep .*/{a}${b}${c}${d}${e}${f}/g' package/lean/autocore/files/x86/autocore
+sed -i 's/(cat \/tmp.*/\{a}${b}${c}${d}${e}${f}/g' package/lean/autocore/files/x86/autocore
 sed -i '/h=${g}.*/d' package/lean/autocore/files/x86/autocore
 sed -i 's/echo $h/echo $g/g' package/lean/autocore/files/x86/autocore
 
@@ -49,3 +50,5 @@ sed -i 's/os.date(/&"%Y-%m-%d %H:%M:%S"/' package/lean/autocore/files/x86/index.
 sed -i 's/console=tty0//g'  target/linux/x86/image/Makefile
 #tr
 #sed -i "s/&& LINUX_VERSION_CODE < KERNEL_VERSION(5, 18, 0)//g" package/lean/shortcut-fe/fast-classifier/src/fast-classifier.c
+
+sed -i s/5.15/6.1/g  target/linux/x86/Makefile
