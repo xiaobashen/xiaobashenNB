@@ -143,6 +143,12 @@ jobs:
 #        name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
 #        path: openwrt/bin
 
+    - name: 获取内核版本号
+      run: |
+         cd openwrt/bin/targets/x86/64
+         KERNEL_VERSION=$(ls -l *openwrt-x86-64-generic-kernel.bin | awk '{print $9}' | cut -d '-' -f1)
+         echo "KERNEL_VERSION=$KERNEL_VERSION" >> $GITHUB_ENV
+         
     - name: 整理固件文件夹 #Organize files
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
@@ -231,10 +237,10 @@ jobs:
     - name: TG信息通知
       if: env.SERVERCHAN_SCKEY == 'true'
       run: |
-        curl -k --data chat_id=${{ secrets.TGID }} --data "text=我亲爱的主人您要编译的$RELEASE_TAG-$(date +"%Y.%m.%d-%H%M")固件编译成功！https://github.com/xiaobashen/xiaobashenNB/releases/tag/${{ steps.tag.outputs.release_tag }} " "https://api.telegram.org/bot${{ secrets.TG_TOKEN }}/sendMessage"
+        curl -k --data chat_id=${{ secrets.TGID }} --data "text=我亲爱的主人您要编译的$RELEASE_TAG-$KERNEL_VERSION-$(date +"%Y.%m.%d-%H%M")固件编译成功！https://github.com/xiaobashen/xiaobashenNB/releases/tag/${{ steps.tag.outputs.release_tag }} " "https://api.telegram.org/bot${{ secrets.TG_TOKEN }}/sendMessage"
         
     - name: PUSHPLUS信息通知
       if: env.SERVERCHAN_SCKEY == 'false'
       run: |
-        curl -k --data token="${{ secrets.PUSH_PLUS_TOKEN }}" --data title="恭喜主人$RELEASE_TAG-$(date +"%Y.%m.%d-%H%M")固件编译成功！" --data "content=我亲爱的主人您要编译的$RELEASE_TAG-$(date +"%Y.%m.%d-%H%M")固件成功完成了！https://github.com/Jason6111/OpenWrt_Personal/releases/tag/${{ steps.tag.outputs.release_tag }} " "http://www.pushplus.plus/send"
+        curl -k --data token="${{ secrets.PUSH_PLUS_TOKEN }}" --data title="恭喜主人$RELEASE_TAG-$KERNEL_VERSION-$(date +"%Y.%m.%d-%H%M")固件编译成功！" --data "content=我亲爱的主人您要编译的$RELEASE_TAG-$(date +"%Y.%m.%d-%H%M")固件成功完成了！https://github.com/Jason6111/OpenWrt_Personal/releases/tag/${{ steps.tag.outputs.release_tag }} " "http://www.pushplus.plus/send"
         
