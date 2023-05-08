@@ -52,5 +52,3 @@ sed -i 's/console=tty0//g'  target/linux/x86/image/Makefile
 #sed -i "s/&& LINUX_VERSION_CODE < KERNEL_VERSION(5, 18, 0)//g" package/lean/shortcut-fe/fast-classifier/src/fast-classifier.c
 
 sed -i s/5.15/6.1/g  target/linux/x86/Makefile
-#tmep
-sed -i "s/73a2498dc95934c225d358707e7f7d060b5ce81aa45260ada09cbd15207d27d1/5279eb1cb7555cf9292423cc9f672dc43e6e214b3411a6df26a6a1cfa59d88b7/g" ./feeds/helloworld/ipt2socks/Makefile
