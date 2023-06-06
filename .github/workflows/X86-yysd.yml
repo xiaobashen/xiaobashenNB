@@ -104,7 +104,27 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-
+        
+        cd ..
+        platforms=("")
+        for i in "${platforms[@]}"; do
+          [ -e config/$i.config ] && cp -r ./$i.config openwrt/.config
+          cd openwrt
+          make defconfig
+          cd ..
+          cp -f openwrt/.config ./$i.config
+        done
+        
+    - name: 自动更新config #Git auto update config
+      uses: stefanzweifel/git-auto-commit-action@v4.16.0
+      id: commit
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        commit_message: 自动更新config
+        branch: main
+        commit_author: xiaobashen
+        
 #    - name: SSH connection to Actions
 #      uses: P3TERX/ssh2actions@v1.0.0
 #      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
@@ -116,7 +136,6 @@ jobs:
       id: package
       run: |
         cd openwrt
-        make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
