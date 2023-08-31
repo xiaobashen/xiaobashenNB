@@ -51,4 +51,6 @@ sed -i 's/console=tty0//g'  target/linux/x86/image/Makefile
 #tr
 #sed -i "s/&& LINUX_VERSION_CODE < KERNEL_VERSION(5, 18, 0)//g" package/lean/shortcut-fe/fast-classifier/src/fast-classifier.c
 
-sed -i s/5.15/6.1/g  target/linux/x86/Makefile
+# 临时
+sed -i 's/5.15/6.1/g'  target/linux/x86/Makefile
+curl -o ./feeds/packages/multimedia/aliyundrive-webdav/Makefile https://raw.githubusercontent.com/coolsnowwolf/packages/aea60b5432fad984c0a4013bad0f0c5e00dcd115/multimedia/aliyundrive-webdav/Makefile
