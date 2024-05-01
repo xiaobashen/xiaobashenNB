@@ -34,9 +34,9 @@ git clone https://github.com/Jason6111/luci-app-netdata ./feeds/luci/application
 # git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git ./feeds/luci/themes/luci-theme-argon
 # git clone https://github.com/jerrykuku/luci-app-argon-config.git ./package/lean/luci-app-argon-config
 #sed -i s/5.19/5.18/g  target/linux/x86/Makefile
-svn co https://github.com/xiaobashen/xiaobashenNB/trunk/other ./feeds/luci/themes/luci-theme-argon-mod/htdocs/luci-static/argon/background/
-rm -rf ./feeds/luci/themes/luci-theme-argon-mod/htdocs/luci-static/argon/background/.svn/
-
+#svn co https://github.com/xiaobashen/xiaobashenNB/trunk/other ./feeds/luci/themes/luci-theme-argon-mod/htdocs/luci-static/argon/background/
+#rm -rf ./feeds/luci/themes/luci-theme-argon-mod/htdocs/luci-static/argon/background/.svn/
+mkdir -p ./feeds/luci/themes/luci-theme-argon-mod/htdocs/luci-static/argon/background/ && curl -o ./feeds/luci/themes/luci-theme-argon-mod/htdocs/luci-static/argon/background/MM.mp4 https://raw.githubusercontent.com/xiaobashen/xiaobashenNB/main/other/MM.mp4
 #恢复主机型号
 sed -i 's/(dmesg | grep .*/{a}${b}${c}${d}${e}${f}/g' package/lean/autocore/files/x86/autocore
 #sed -i 's/(cat \/tmp.*/\{a}${b}${c}${d}${e}${f}/g' package/lean/autocore/files/x86/autocore
