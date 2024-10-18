@@ -55,5 +55,5 @@ sed -i 's/console=tty0//g'  target/linux/x86/image/Makefile
 sed -i 's/6.1/6.6/g'  ./target/linux/x86/Makefile
 sed -i 's/1024/256/g'  target/linux/x86/image/Makefile
 sed -i 's/1.78.0/1.82.0/g' ./feeds/packages/lang/rust/Makefile
-sed -i 's/36217ef7e32f40a180e3d79bd666b4dfdaed49dd381023a5fb765fd12d0092ce/1276a0bb8fa12288ba6fa96597d28b40e74c44257c051d3bc02c2b049bb38210/g' ./feeds/packages/lang/rust/Makefile
+sed -i 's/8065824f0255faa3901db8206e6f9423f6f8c07cec28bc6f2797c6c948310ece/1276a0bb8fa12288ba6fa96597d28b40e74c44257c051d3bc02c2b049bb38210/g' ./feeds/packages/lang/rust/Makefile
 
